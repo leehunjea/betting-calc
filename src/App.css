@@ -1,0 +1,407 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+:root {
+  /* 색상 통일: 금융 앱 스타일의 블루 & 그레이 스케일 */
+  --primary: #3182f6;       /* 메인 블루 */
+  --primary-hover: #1b64da;
+  --bg-color: #f2f4f6;      /* 아주 연한 배경 회색 */
+  --card-bg: #ffffff;
+  --text-main: #191f28;     /* 짙은 흑회색 (완전 검정보다 세련됨) */
+  --text-sub: #8b95a1;      /* 보조 텍스트 회색 */
+  --border-color: #e5e8eb;  /* 테두리 회색 */
+  --danger: #f04452;        /* 경고/삭제 빨간색 */
+  
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 800px; /* 너무 넓게 퍼지지 않도록 제한 */
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--text-main);
+}
+
+/* 카드 공통 레이아웃 */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.primary-card {
+  border: 1px solid var(--primary);
+}
+
+/* 웹/모바일 반응형 그리드 */
+.grid {
+  display: grid;
+  gap: 20px;
+  /* 기본적으로 모바일에서는 1줄, PC에서는 2줄로 자동 배치 */
+  grid-template-columns: 1fr; 
+}
+
+@media (min-width: 768px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* 입력창 공통 스타일 (터치하기 좋게 큼직하게) */
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text-main);
+  background-color: #fafafa;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background-color: #fff;
+}
+
+/* 버튼 공통 스타일 */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 20px;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  width: 100%;
+}
+.btn-primary:hover { background: var(--primary-hover); }
+
+.btn-secondary {
+  background: #f2f4f6;
+  color: var(--text-main);
+  width: 100%;
+}
+.btn-secondary:hover { background: #e5e8eb; }
+
+.btn-text-danger {
+  background: transparent;
+  color: var(--text-sub);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+.btn-text-danger:hover { color: var(--danger); background: #feebeb; }
+
+
+/* --- 참가자 관리 --- */
+.player-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.player-input-group {
+  display: flex;
+  align-items: center;
+  background: #fafafa;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding-right: 8px;
+  flex: 1 1 calc(50% - 5px); /* 모바일에서 2개씩 배치 */
+  min-width: 120px;
+}
+.player-input-group:focus-within { border-color: var(--primary); }
+
+.player-input-group .player-input {
+  border: none;
+  background: transparent;
+  padding: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.btn-remove-player {
+  background: transparent;
+  color: #b0b8c1;
+  padding: 4px 8px;
+  font-size: 1.1rem;
+}
+.btn-remove-player:hover { color: var(--danger); }
+
+
+/* --- 게임 기록 입력 (웹/모바일 배치 최적화) --- */
+.record-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.winner-section {
+  background: #f9fbff;
+  border-radius: var(--radius-sm);
+  padding: 20px;
+}
+.winner-section label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.total-profit {
+  margin-top: 16px;
+  font-size: 1.1rem;
+  color: var(--text-sub);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.highlight-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.losers-section {
+  display: grid;
+  grid-template-columns: 1fr; /* 모바일: 세로 1줄 */
+  gap: 12px;
+}
+.loser-input {
+  background: #ffffff;
+}
+.loser-input label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .record-input-group { flex-direction: row; }
+  .winner-section { flex: 1; }
+  .losers-section { flex: 2; grid-template-columns: 1fr 1fr; } /* PC: 패자 입력창 2줄 */
+}
+
+
+/* --- 정산 결과 --- */
+.empty-text { color: var(--text-sub); text-align: center; padding: 20px 0; }
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1.1rem;
+}
+.transaction-item:last-child { border-bottom: none; padding-bottom: 0; }
+.sender { color: var(--text-main); font-weight: 500; }
+.receiver { color: var(--text-main); font-weight: 600; }
+.arrow { color: var(--text-sub); margin: 0 8px; font-size: 0.9rem; }
+.amount { color: var(--primary); font-size: 1.2rem; }
+
+
+/* --- 히스토리 --- */
+.history-list { list-style: none; padding: 0; margin: 0; }
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+.history-item:last-child { border-bottom: none; }
+
+.history-info { flex: 1; }
+.history-header { margin-bottom: 6px; }
+.round-badge {
+  background: var(--border-color);
+  color: var(--text-sub);
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-right: 8px;
+  font-weight: 600;
+}
+.win-amount { color: var(--primary); font-weight: 600; }
+.history-losers { color: var(--text-sub); font-size: 0.9rem; }
+
+/* --- 신규 기능 UI 스타일 추가 --- */
+
+/* 1. 복사하기 및 초기화 헤더 영역 */
+.settlement-header,
+.history-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.settlement-header h2,
+.history-header-wrapper h2 {
+  margin-bottom: 0;
+}
+
+.btn-copy {
+  background: #e8f3ff;
+  color: var(--primary);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.btn-copy:hover {
+  background: #d1e6ff;
+}
+
+/* 2. 빠른 금액 입력 (+1천, +5천) 버튼 */
+.quick-amounts {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.btn-quick {
+  flex: 1;
+  background: #f2f4f6;
+  color: var(--text-sub);
+  padding: 8px 0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+.btn-quick:hover {
+  background: #e5e8eb;
+  color: var(--text-main);
+  border-color: #d1d6db;
+}
+.btn-quick:active {
+  background: #d1d6db;
+}
+
+/* --- 신규: 대시보드 및 뱃지 스타일 --- */
+.dashboard-card {
+  background: linear-gradient(to bottom right, #ffffff, #f9fbff);
+  border: 1px solid #e1eaf7;
+}
+
+.badges-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.badge {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.tazza-badge { background: linear-gradient(135deg, #fff9e6, #fff0c2); border: 1px solid #ffe48a; }
+.hogu-badge { background: linear-gradient(135deg, #feebeb, #fcd5d5); border: 1px solid #fca5a5; }
+
+.badge-icon {
+  font-size: 2rem;
+  background: white;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.badge-info { display: flex; flex-direction: column; }
+.badge-title { font-size: 0.85rem; font-weight: 700; color: var(--text-sub); margin-bottom: 4px; }
+.badge-name { font-size: 1.3rem; font-weight: 800; color: var(--text-main); }
+
+.charts-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .charts-grid { grid-template-columns: 1fr 1.5fr; } /* 파이차트보다 꺾은선 차트를 더 넓게 */
+}
+
+.chart-box h3 {
+  font-size: 1rem;
+  color: var(--text-main);
+  margin-top: 0;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.chart-wrapper {
+  height: 250px;
+  width: 100%;
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 10px;
+  border: 1px solid var(--border-color);
+}
+
+/* --- 개발자 서명 (푸터) --- */
+.app-footer {
+  text-align: center;
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border-color);
+  color: var(--text-sub);
+  font-size: 0.95rem;
+}
+
+.app-footer p {
+  margin: 0;
+}
+
+.app-footer strong {
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
